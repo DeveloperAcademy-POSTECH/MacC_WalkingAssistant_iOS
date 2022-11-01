@@ -55,10 +55,10 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         view.addSubview(createSettingButton)
     }
 
-    lazy var createObjectDetectionView: ObjectDetectionViewController = {
-        let objectDetectionView = ObjectDetectionViewController()
+    lazy var createObjectDetectionView: ObjectRecognitionViewController = {
+        let objectRecognitionView = ObjectRecognitionViewController()
 
-        return objectDetectionView
+        return objectRecognitionView
     }()
 
     lazy var createNavigateButton: UIButton = {
