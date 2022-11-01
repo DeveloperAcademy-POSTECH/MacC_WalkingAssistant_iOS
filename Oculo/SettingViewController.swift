@@ -9,45 +9,49 @@
 import UIKit
 
 class SettingViewController: UIViewController {
-    
+
     lazy var logoImageView = UIImageView(image: UIImage(named: "settingViewLogo"))
     lazy var tableView = UITableView(frame: .zero, style: .insetGrouped)
     lazy var lastLableView = UILabel()
-    
-    let data = [["멤버십", "보행정보 제공 동의"], ["이용 약관 (Terms of arrangement", "개인정보 보호 (Privacy)", "사용권 조항 (License)", "고객센터 (Contact Us)"]]
+
+    // TODO: localizing is needed
+    let data = [["멤버십", "보행정보 제공 동의"],
+                ["이용 약관", "개인정보 보호", "사용권 조항", "고객센터"]]
+    let localizedData = [["Membership", "Agreement on sending walking data"],
+                         ["Terms of agreement", "Privacy policy", "License", "Contact us"]]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.backgroundColor = .systemBackground
-        
-        self.view.addSubview(self.logoImageView)
-        self.view.addSubview(self.tableView)
-        self.view.addSubview(self.lastLableView)
-        
-        self.tableView.dataSource = self
-        self.lastLableView.text = """
+
+        view.backgroundColor = .systemBackground
+
+        view.addSubview(logoImageView)
+        view.addSubview(tableView)
+        view.addSubview(lastLableView)
+
+        tableView.dataSource = self
+        lastLableView.text = """
         Copyright(c) 2022. IntelligentATLAS.
         All Rights Reserved.
         """
-        self.lastLableView.lineBreakMode = .byWordWrapping
-        self.lastLableView.numberOfLines = 0
-        self.lastLableView.textAlignment = .center
-        
-        self.logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        self.tableView.translatesAutoresizingMaskIntoConstraints = false
-        self.lastLableView.translatesAutoresizingMaskIntoConstraints = false
-        
+        lastLableView.lineBreakMode = .byWordWrapping
+        lastLableView.numberOfLines = 0
+        lastLableView.textAlignment = .center
+
+        logoImageView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        lastLableView.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate(
         [
-            self.logoImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            self.logoImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.tableView.topAnchor.constraint(equalTo: self.logoImageView.bottomAnchor),
-            self.tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            self.tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            self.lastLableView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.lastLableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            tableView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            lastLableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            lastLableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 
@@ -55,10 +59,10 @@ class SettingViewController: UIViewController {
 
 extension SettingViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return data.count
+        data.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data[section].count
+        data[section].count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
