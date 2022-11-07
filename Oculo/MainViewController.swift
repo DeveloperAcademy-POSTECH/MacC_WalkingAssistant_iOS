@@ -20,6 +20,9 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
     var bufferSize: CGSize = .zero
     var rootLayer: CALayer! = nil
 
+    // Varibale for Custom Rotor
+    var rotorPropertyValueLabel: UILabel!
+    
 //    @IBOutlet weak private var previewView: UIView!  // MARK: Storyboard component
     private var previewView: UIView!
     
@@ -51,6 +54,9 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         self.view.addSubview(self.createEnvironmentReaderButton)
         self.view.addSubview(self.createTextReadingButton)
         self.view.addSubview(self.createSettingButton)
+        
+        let buttonRotor = self.switchingButtonRotor()
+        self.accessibilityCustomRotors = [buttonRotor]
     }
 
     lazy var createNavigateButton: UIButton = {
@@ -179,6 +185,29 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
 //
 //        return UIToggleSwitch
 //    }()
+    
+    // MARK: Switching Button Custom Rotor
+    private func switchingButtonRotor() -> UIAccessibilityCustomRotor {
+        
+        // Create a custor Rotor option, it has a name that will be read by voice over, and
+        // a action that is a action called when this rotor option is interacted with.
+        // The predicate gives you info about the state of this interaction
+        let propertyRotorOption = UIAccessibilityCustomRotor.init(name: "버튼 변경") { (predicate) -> UIAccessibilityCustomRotorItemResult? in
+            
+            // Get the direction of the movement when this rotor option is enablade
+            // 버튼 변경에 대한 로직이 들어가야합니다.
+    // let forward = predicate.searchDirection == UIAccessibilityCustomRotor.Direction.next
+            
+            // You can do any kind of business logic processing here
+            
+            
+            // Return the selection of voice over to the element rotorPropertyValueLabel
+            // Use this return to select the desired selection that fills the purpose of its logic
+            return UIAccessibilityCustomRotorItemResult.init(targetElement: self.rotorPropertyValueLabel , targetRange: nil)
+        }
+        
+        return propertyRotorOption
+    }
 
     @objc func onClickSwitch(sender: UISwitch) {
 //        var text: String!  // MARK: Marked as an annotation for possible later use -> Swiping UI
